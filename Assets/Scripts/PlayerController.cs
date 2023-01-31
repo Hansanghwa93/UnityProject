@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,18 +17,20 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
+    private CircleCollider2D cir;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        cir = GetComponent<CircleCollider2D>();
     }
 
     private void Update()
     {
         if (isDead)
             return;
-
+        
         Vector3 moveVelocitiy = Vector3.zero;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -60,11 +65,15 @@ public class PlayerController : MonoBehaviour
         {
             isProne = false;
         }
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && jumpCount < 2)
+        if (Input.GetButton("Vertical") && Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            DownJump();
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftAlt) && jumpCount < 2)
         {
             Jump();
         }
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             Attack();
         }
@@ -72,6 +81,18 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Move", isMove);
         animator.SetBool("Grounded", isGrounded);
         animator.SetInteger("JumpCount", jumpCount);
+    }
+    private void DownJump()
+    {
+        cir.isTrigger = true;
+        isGrounded = false;
+        StartCoroutine("TriggerCrtl");
+    }
+
+    private IEnumerator TriggerCrtl()
+    {
+        yield return new WaitForSeconds(0.2f);
+        cir.isTrigger = false;
     }
 
     private void Jump()
