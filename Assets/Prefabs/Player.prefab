@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 400
   speed: 3
+  currMapName: 
 --- !u!114 &2559158076356125016
 MonoBehaviour:
   m_ObjectHideFlags: 0

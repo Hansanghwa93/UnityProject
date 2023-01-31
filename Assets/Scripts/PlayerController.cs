@@ -2,6 +2,7 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Portal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,23 +15,34 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     private bool isMove = false;
     private bool isProne = false;
+    private bool isAttack = false;
 
     private Rigidbody2D rb;
     private Animator animator;
     private CircleCollider2D cir;
+    private BoxCollider2D box;
+
+    public string currMapName;
+    public Scenes currScene;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         cir = GetComponent<CircleCollider2D>();
+        box = GetComponent<BoxCollider2D>();
+
+        currScene = Scenes.Village;
     }
 
     private void Update()
     {
         if (isDead)
             return;
-        
+
+        if (isAttack)
+            box.isTrigger = true;
+
         Vector3 moveVelocitiy = Vector3.zero;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -73,8 +85,9 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
+            isAttack = true;
             Attack();
         }
         animator.SetBool("Prone", isProne);
@@ -82,6 +95,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Grounded", isGrounded);
         animator.SetInteger("JumpCount", jumpCount);
     }
+
     private void DownJump()
     {
         cir.isTrigger = true;
@@ -102,21 +116,11 @@ public class PlayerController : MonoBehaviour
         ++jumpCount;
         rb.velocity = Vector2.zero;
         rb.AddForce(new Vector2(0, jumpForce));
-        if(isGrounded && Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            JumpAddForce();
-        }
         if(jumpCount == 2)
         {
             moveX = Input.GetAxis("Horizontal") * speed;
             rb.velocity = new Vector2(moveX * 2f, rb.velocity.y * 0.5f);
         }
-    }
-
-    private void JumpAddForce()
-    {
-        rb.velocity = new Vector2(rb.velocity.x, 0f);
-        rb.AddForce(Vector2.up * jumpForce);
     }
 
     private void Attack()

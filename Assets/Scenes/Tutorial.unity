@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6519519113295728284, guid: 8e7c3c95af5633043aff69475a5cf9b7, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6519519113295728284, guid: 8e7c3c95af5633043aff69475a5cf9b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -210,7 +210,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &24224806
 MonoBehaviour:
@@ -230,11 +230,6 @@ MonoBehaviour:
   createTime: 0
   maxMonster: 20
   isGameOver: 0
---- !u!4 &245726841 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2559158076356125022, guid: 4060f2696ed030046ae3dee937f0ace5, type: 3}
-  m_PrefabInstance: {fileID: 2559158076601147175}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,12 +327,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56972b03c4809ff4796008cf48c62ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 245726841}
+  playerTransform: {fileID: 0}
   cameraPosition: {x: 0, y: 2, z: -10}
   center: {x: 0, y: 0}
   mapSize: {x: 18, y: 4.3}
   cameraMoveSpeed: 50
---- !u!1001 &2559158076601147175
+--- !u!1001 &1840568404
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -350,15 +345,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2559158076356125022, guid: 4060f2696ed030046ae3dee937f0ace5, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2559158076356125022, guid: 4060f2696ed030046ae3dee937f0ace5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.148
+      value: -16.04
       objectReference: {fileID: 0}
     - target: {fileID: 2559158076356125022, guid: 4060f2696ed030046ae3dee937f0ace5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.970097
+      value: -2.039273
       objectReference: {fileID: 0}
     - target: {fileID: 2559158076356125022, guid: 4060f2696ed030046ae3dee937f0ace5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -401,9 +396,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 351993153, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
+      propertyPath: transferMapName
+      value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 734099927, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
+      propertyPath: transferMapName
+      value: Village
+      objectReference: {fileID: 0}
     - target: {fileID: 2349800547616913294, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2349800547616913294, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
       propertyPath: m_LocalPosition.x
