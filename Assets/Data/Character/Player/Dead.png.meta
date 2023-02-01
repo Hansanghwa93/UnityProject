@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e280675b7ce6b2e46b4c8ffe7725df8c
+guid: 39799878cd2a9e14fa11f5d7128b10a5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stand_0
+      name: Dead_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 47
-        height: 73
+        width: 43
+        height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,50 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4983dc7cee2358b41b826b7273721d2e
-      internalID: -1979585280
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stand_1
-      rect:
-        serializedVersion: 2
-        x: 47
-        y: 0
-        width: 47
-        height: 73
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 271f8a32b0ea32a47ad6a2efba51314f
-      internalID: -1183463351
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stand_2
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 0
-        width: 47
-        height: 73
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 806ebfec268619041bcef884fb428af8
-      internalID: 1114375336
+      spriteID: f921fb0e2cb80d24083c3412a556f617
+      internalID: -2026968413
       vertices: []
       indices: 
       edges: []
@@ -178,9 +136,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Stand_2: 1114375336
-      Stand_1: -1183463351
-      Stand_0: -1979585280
+      Dead_0: -2026968413
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

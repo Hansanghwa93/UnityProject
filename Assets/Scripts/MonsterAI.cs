@@ -4,21 +4,10 @@ using UnityEngine;
 
 public class MonsterAI : MonoBehaviour
 {
-    public enum States
-    {
-        None = -1,
-        Idle,
-        Patrol,
-        Chase,
-        Attack,
-        GameOver,
-    }
-
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     public int nextMove;
-    private bool IsMove = false;
 
     private void Awake()
     {
@@ -26,7 +15,7 @@ public class MonsterAI : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        Invoke("Think", 5);
+        Invoke("Think", 0);
     }
 
     private void FixedUpdate()
@@ -47,7 +36,7 @@ public class MonsterAI : MonoBehaviour
 
     private void Think()
     {
-        nextMove = Random.Range(-1, 1);
+        nextMove = Random.Range(-1, 2);
 
         animator.SetInteger("WalkSpeed", nextMove);
 

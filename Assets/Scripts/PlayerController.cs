@@ -2,7 +2,6 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Portal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,8 +21,9 @@ public class PlayerController : MonoBehaviour
     private CircleCollider2D cir;
     private BoxCollider2D box;
 
+    private GameObject target;
+
     public string currMapName;
-    public Scenes currScene;
 
     private void Start()
     {
@@ -31,17 +31,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         cir = GetComponent<CircleCollider2D>();
         box = GetComponent<BoxCollider2D>();
-
-        currScene = Scenes.Village;
     }
 
     private void Update()
     {
         if (isDead)
             return;
-
-        if (isAttack)
-            box.isTrigger = true;
 
         Vector3 moveVelocitiy = Vector3.zero;
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -87,8 +82,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            isAttack = true;
-            Attack();
+            Attack(target);
         }
         animator.SetBool("Prone", isProne);
         animator.SetBool("Move", isMove);
@@ -123,8 +117,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Attack()
+    private void Attack(GameObject target)
     {
+        if (isAttack)
+        {
+        }
         animator.SetTrigger("Atk");
     }
 
@@ -145,5 +142,18 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         isGrounded = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Monster"))
+        {
+            isAttack = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        isAttack = false;
     }
 }

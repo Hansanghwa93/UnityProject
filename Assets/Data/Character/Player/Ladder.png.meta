@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 91837db22d9d29446891abe75a8256ea
+guid: 0dc84ef9ac0797847a85dc10adce23e7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_0
+      name: Ladder_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 47
-        height: 73
+        width: 45
+        height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3341ef2aee247da4fb85b4bb08502687
-      internalID: -446018478
+      spriteID: b29f1bb713007ea49b25afe5f53efd57
+      internalID: 684081516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_1
+      name: Ladder_1
       rect:
         serializedVersion: 2
-        x: 47
+        x: 45
         y: 0
-        width: 47
-        height: 73
+        width: 45
+        height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,50 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4796a9719558e44eac4c0cdad10d424
-      internalID: -2117158113
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_2
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 0
-        width: 47
-        height: 73
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c41ca3576b1483c4682d7a5a33f0cf45
-      internalID: -1102370393
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_3
-      rect:
-        serializedVersion: 2
-        x: 141
-        y: 0
-        width: 47
-        height: 73
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8cfef1f9e98da20418b11955150f9efa
-      internalID: 384713826
+      spriteID: bebec6af1592f194ab9c10d789d45008
+      internalID: -486853260
       vertices: []
       indices: 
       edges: []
@@ -199,10 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Walk_0: -446018478
-      Walk_2: -1102370393
-      Walk_3: 384713826
-      Walk_1: -2117158113
+      Ladder_0: 684081516
+      Ladder_1: -486853260
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

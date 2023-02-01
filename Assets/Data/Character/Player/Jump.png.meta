@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 386fd907556d5b24c86b7aa3e06f0ffa
+guid: f578469f9c6cb7242ba0972b1f66c706
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Prone_0
+      name: Jump_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 63
-        height: 45
+        width: 43
+        height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e47d9621eedbe5468245642ccfc0e3e
-      internalID: -282175987
+      spriteID: 03e32d1716c9c9642bcaa6c57cae4a66
+      internalID: -1930752412
       vertices: []
       indices: 
       edges: []
@@ -136,7 +136,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Prone_0: -282175987
+      Jump_0: -1930752412
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

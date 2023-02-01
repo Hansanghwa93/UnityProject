@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a2394e131405d7f41879d91c3782bfb0
+guid: f6832fa399cc2784886825daaf95bc78
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: avatar_jump(0)_default(0)_0
+      name: Stand_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 47
-        height: 71
+        width: 43
+        height: 72
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,8 +119,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29162458622d29a41af7f0db0a29a1ce
-      internalID: 1346899065
+      spriteID: 29d585ff3cc4fea44886ed9cd8bcd081
+      internalID: -682561968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_1
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 0
+        width: 43
+        height: 72
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99d4dafef6499ac46a25b9adedd27c10
+      internalID: -917558166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_2
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 0
+        width: 43
+        height: 72
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2150cf9cace32c498d8cae836bfa75c
+      internalID: -1728635339
       vertices: []
       indices: 
       edges: []
@@ -136,7 +178,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      avatar_jump(0)_default(0)_0: 1346899065
+      Stand_2: -1728635339
+      Stand_1: -917558166
+      Stand_0: -682561968
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
