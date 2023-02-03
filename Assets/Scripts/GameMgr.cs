@@ -10,7 +10,7 @@ public class GameMgr : MonoBehaviour
     public int maxMonster = 10;
     public bool isGameOver = false;
 
-    void Start()
+    void Awake()
     {
         points = GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>();
 

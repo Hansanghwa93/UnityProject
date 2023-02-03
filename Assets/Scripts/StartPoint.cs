@@ -5,12 +5,12 @@ using UnityEngine;
 public class StartPoint : MonoBehaviour
 {
     public string startPoint;
-    private PlayerController player;
+    private Player player;
 
     private void Start()
     {
         if (player == null)
-            player = FindObjectOfType<PlayerController>();
+            player = FindObjectOfType<Player>();
 
         if (startPoint == player.currMapName)
             player.transform.position = transform.position;

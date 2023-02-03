@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
         Boss,
     }
 
-    private PlayerController player;
+    private Player player;
 
     public string transferMapName;
     private BoxCollider2D box;
@@ -26,7 +26,7 @@ public class Portal : MonoBehaviour
     private void Start()
     {
         box = GetComponent<BoxCollider2D>();
-        player = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<Player>();
     }
 
     private void Update()

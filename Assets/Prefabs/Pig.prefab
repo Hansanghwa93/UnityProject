@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8360634127007235195}
   - component: {fileID: 8360634127007235192}
   - component: {fileID: 8360634127007235196}
-  - component: {fileID: 8360634127007235199}
   - component: {fileID: 1320009809}
+  - component: {fileID: 8360634127007235199}
   m_Layer: 10
   m_Name: Pig
   m_TagString: Monster
@@ -146,19 +146,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &8360634127007235199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8360634127007235193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9093c491430f88d4eabdd48bb294a3f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextMove: 1
 --- !u!61 &1320009809
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -185,3 +172,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8625, y: 0.6125}
   m_EdgeRadius: 0
+--- !u!114 &8360634127007235199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8360634127007235193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9093c491430f88d4eabdd48bb294a3f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextMove: 1
+  Hp: 1000

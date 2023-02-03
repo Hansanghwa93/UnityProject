@@ -32,6 +32,9 @@ public class CameraCtrl : MonoBehaviour
 
     void LimitCameraArea()
     {
+        if(playerTransform == null)
+            return;
+
         transform.position = Vector3.Lerp(transform.position,
                                           playerTransform.position + cameraPosition,
                                           Time.deltaTime * cameraMoveSpeed);

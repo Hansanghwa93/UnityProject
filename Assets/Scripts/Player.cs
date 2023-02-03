@@ -1,10 +1,10 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
+    private CharacterStats stats;
+
     public float jumpForce = 250f;
     public float speed = 3f;
     private float moveX;
@@ -21,12 +21,21 @@ public class PlayerController : MonoBehaviour
     private CircleCollider2D cir;
     private BoxCollider2D box;
 
-    private GameObject target;
+    public Transform pos;
+    public Vector2 boxSize;
 
     public string currMapName;
 
+    private float curTime;
+    public float coolTime = 0.5f;
+
+    public int myHp;
+    private int monHp;
+    private int bossHp;
+
     private void Start()
     {
+        stats = GetComponent<CharacterStats>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         cir = GetComponent<CircleCollider2D>();
@@ -80,13 +89,41 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (curTime <= 0)
         {
-            Attack(target);
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                curTime = coolTime;
+                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+                foreach(Collider2D collider in collider2Ds)
+                {
+                    if(collider.tag == "Monster")
+                    {
+                        collider.GetComponent<Monster>().TakeDamage(Random.Range(300,500));
+                        monHp = collider.GetComponent<Monster>().hp;
+                        if(monHp <= 0)
+                            Destroy(collider.gameObject);
+                    }
+                    else if (collider.tag == "Boss")
+                    {
+                        collider.GetComponent<Boss>().TakeDamage(Random.Range(300, 500));
+                        bossHp = collider.GetComponent<Boss>().hp;
+                        Debug.Log(bossHp);
+                        if (bossHp <= 0)
+                            Destroy(collider.gameObject);
+                    }
+                }
+                animator.SetTrigger("Atk");
+            }
+        }
+        else
+        {
+            curTime -= Time.deltaTime;
         }
         animator.SetBool("Prone", isProne);
         animator.SetBool("Move", isMove);
         animator.SetBool("Grounded", isGrounded);
+        animator.SetBool("IsDead", isDead);
         animator.SetInteger("JumpCount", jumpCount);
     }
 
@@ -117,12 +154,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Attack(GameObject target)
+    public void TakeDamage(int damage)
     {
-        if (isAttack)
-        {
-        }
-        animator.SetTrigger("Atk");
+        myHp = myHp - damage;
+    }
+
+    public void Dead()
+    {
+        if (myHp <= 0)
+            animator.SetBool("IsDead", true);
     }
 
     private void RopeAction()
@@ -144,16 +184,9 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnDrawGizmos()
     {
-        if(collision.CompareTag("Monster"))
-        {
-            isAttack = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        isAttack = false;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(pos.position, boxSize);
     }
 }

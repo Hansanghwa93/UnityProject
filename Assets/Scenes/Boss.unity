@@ -236,12 +236,12 @@ GameObject:
   - component: {fileID: 300497676}
   - component: {fileID: 300497675}
   - component: {fileID: 300497674}
-  - component: {fileID: 300497673}
   - component: {fileID: 300497672}
   - component: {fileID: 300497671}
+  - component: {fileID: 300497677}
   m_Layer: 10
   m_Name: BossMop
-  m_TagString: Monster
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -283,19 +283,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.10325265, y: 1.3580525}
   m_Size: {x: 1.989635, y: 2.7965546}
   m_Direction: 0
---- !u!114 &300497673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300497670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9093c491430f88d4eabdd48bb294a3f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextMove: 1
 --- !u!212 &300497674
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -339,7 +326,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -1803297616, guid: ebdb0a5d7ea2db54db7f47b324fc84ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 5.8250003, y: 3.2253664}
@@ -383,6 +370,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &300497677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300497670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0e3c0dbe4944b4b9687fbecd7b8ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 503352995}
+  attackRange: {x: 5, y: 3}
+  speed: 1
+  aggroRange: 10
+  coolTime: 2
+  hp: 2000
+--- !u!4 &503352995 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
+  m_PrefabInstance: {fileID: 4053175263938362712}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1575247582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -467,6 +477,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1998527154236239123, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
+      propertyPath: hp
+      value: 300000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998527154236239123, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
+      propertyPath: myHp
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
       propertyPath: m_RootOrder
       value: 3

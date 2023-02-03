@@ -11,6 +11,7 @@ TagManager:
   - PrevPortal
   - Portal
   - AttackPoint
+  - Boss
   layers:
   - Default
   - TransparentFX

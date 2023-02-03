@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
-public class MonsterAI : MonoBehaviour
+public class Monster : MonoBehaviour
 {
+    private CharacterStats stats;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -11,6 +13,7 @@ public class MonsterAI : MonoBehaviour
 
     private void Awake()
     {
+        stats = GetComponent<CharacterStats>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -57,5 +60,12 @@ public class MonsterAI : MonoBehaviour
 
         CancelInvoke();
         Invoke("Think", 0);
+    }
+
+    public int hp = 1000;
+
+    public void TakeDamage(int damage)
+    {
+        hp = hp - damage;
     }
 }
