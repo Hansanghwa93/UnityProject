@@ -39,7 +39,7 @@ public class MonsterSpawner : MonoBehaviour
             monsterPrefabs = GameObject.FindGameObjectsWithTag("Monster");
             if (monsterPrefabs.Length < 20)
             {
-                GameObject enemy = (GameObject)Instantiate(monsterPrefab, new Vector3(randomX, camera_maxy, 0f), Quaternion.identity);
+                GameObject enemy = Instantiate(monsterPrefab, new Vector3(randomX, camera_maxy, 0f), Quaternion.identity);
             }
         }
     }

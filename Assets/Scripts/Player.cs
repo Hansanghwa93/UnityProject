@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Net;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -15,11 +16,13 @@ public class Player : MonoBehaviour
     private bool isMove = false;
     private bool isProne = false;
     private bool isAttack = false;
+    private bool isCanDown = false;
 
     private Rigidbody2D rb;
     private Animator animator;
     private CircleCollider2D cir;
     private BoxCollider2D box;
+    private PlayerSkill1 ps1;
 
     public Transform pos;
     public Vector2 boxSize;
@@ -40,12 +43,15 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         cir = GetComponent<CircleCollider2D>();
         box = GetComponent<BoxCollider2D>();
+        ps1 = GetComponent<PlayerSkill1>();
     }
 
     private void Update()
     {
         if (isDead)
             return;
+
+        CheckPlatformAndDown();
 
         Vector3 moveVelocitiy = Vector3.zero;
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -66,26 +72,28 @@ public class Player : MonoBehaviour
         {
             isMove = false;
         }
+
         transform.position += moveVelocitiy * speed * Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             RopeAction();
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (isGrounded)
-                isProne = true;
-        }
         if (Input.GetKeyUp(KeyCode.DownArrow))
         {
             isProne = false;
         }
-        if (Input.GetButton("Vertical") && Input.GetKeyDown(KeyCode.LeftAlt))
+        if (Input.GetKey(KeyCode.DownArrow) && Input.GetButtonDown("Jump"))
         {
-            DownJump();
+            if (isCanDown)
+                DownJump();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftAlt) && jumpCount < 2)
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (isGrounded)
+                isProne = true;
+        }
+        else if (Input.GetButtonDown("Jump") && jumpCount < 2)
         {
             Jump();
         }
@@ -95,22 +103,17 @@ public class Player : MonoBehaviour
             {
                 curTime = coolTime;
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-                foreach(Collider2D collider in collider2Ds)
+                foreach (Collider2D collider in collider2Ds)
                 {
-                    if(collider.tag == "Monster")
+                    if (collider.tag == "Monster")
                     {
-                        collider.GetComponent<Monster>().TakeDamage(Random.Range(300,500));
+                        collider.GetComponent<Monster>().TakeDamage(Random.Range(300, 500));
                         monHp = collider.GetComponent<Monster>().hp;
-                        if(monHp <= 0)
-                            Destroy(collider.gameObject);
                     }
                     else if (collider.tag == "Boss")
                     {
-                        collider.GetComponent<Boss>().TakeDamage(Random.Range(300, 500));
+                        collider.GetComponent<Boss>().TakeDamage1(Random.Range(300, 500));
                         bossHp = collider.GetComponent<Boss>().hp;
-                        Debug.Log(bossHp);
-                        if (bossHp <= 0)
-                            Destroy(collider.gameObject);
                     }
                 }
                 animator.SetTrigger("Atk");
@@ -120,11 +123,35 @@ public class Player : MonoBehaviour
         {
             curTime -= Time.deltaTime;
         }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Instantiate(ps1);
+        }
+
         animator.SetBool("Prone", isProne);
         animator.SetBool("Move", isMove);
         animator.SetBool("Grounded", isGrounded);
         animator.SetBool("IsDead", isDead);
         animator.SetInteger("JumpCount", jumpCount);
+    }
+
+    private void CheckPlatformAndDown()
+    {
+        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, Vector2.down, 1, LayerMask.GetMask("Platforms"));
+        RaycastHit2D rayHit2 = Physics2D.Raycast(transform.position, Vector2.down, 1, LayerMask.GetMask("CantDownPlatform"));
+        
+        Debug.DrawRay(transform.position, Vector2.down, new Color(0, 1, 0));
+
+        if (rayHit)
+            isCanDown = true;
+        if (rayHit2)
+            isCanDown = false;
+        //if (rayHit)
+        //{
+        //    isGrounded = true;
+        //    DownJump();
+        //}
+
     }
 
     private void DownJump()

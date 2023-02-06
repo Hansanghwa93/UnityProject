@@ -26,17 +26,31 @@ public class Portal : MonoBehaviour
     private void Start()
     {
         box = GetComponent<BoxCollider2D>();
-        player = FindObjectOfType<Player>();
+        //player = FindObjectOfType<Player>();
     }
 
     private void Update()
     {
-        if(isInportal)
+        player = FindObjectOfType<Player>();
+        if (isInportal)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 player.currMapName = transferMapName;
                 SceneManager.LoadScene(transferMapName);
+                if(transferMapName == "Village")
+                {
+                    player.transform.position = new Vector2(-5.8f, -1.890168f);
+                }
+                if (transferMapName == "Tutorial")
+                {
+                    player.transform.position = new Vector2(-16f, -2.044864f);
+                }
+                if (transferMapName == "Boss")
+                {
+                    player.transform.position = new Vector2(-10f, -2.023304f);
+                }
+                DontDestroyOnLoad(player);
             }
         }
     }

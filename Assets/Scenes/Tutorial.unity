@@ -400,63 +400,6 @@ MonoBehaviour:
   center: {x: 0, y: 0}
   mapSize: {x: 18, y: 4.3}
   cameraMoveSpeed: 50
---- !u!1001 &1661010182
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -16
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.044864
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239127, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1998527154236239129, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
-      propertyPath: m_Name
-      value: PlayerDummy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0c7dc86ef9cce94f99f2ce37024f19f, type: 3}
 --- !u!1001 &5160300458305661078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -464,22 +407,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 351993148, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
-      propertyPath: m_TagString
-      value: Portal
-      objectReference: {fileID: 0}
-    - target: {fileID: 351993153, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
-      propertyPath: transferMapName
-      value: Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 734099922, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
-      propertyPath: m_TagString
-      value: Portal
-      objectReference: {fileID: 0}
-    - target: {fileID: 734099927, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
-      propertyPath: transferMapName
-      value: Village
-      objectReference: {fileID: 0}
     - target: {fileID: 2349800547616913294, guid: 3a9ff72b3746b4a4bbc092a188719a69, type: 3}
       propertyPath: m_RootOrder
       value: 1

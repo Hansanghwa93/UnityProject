@@ -8,10 +8,11 @@ using static UnityEditor.PlayerSettings;
 
 public class Boss : MonoBehaviour
 {
-    public Transform target;
     public Vector2 attackRange;
     public float speed;
     public float aggroRange;
+    private float time;
+    private Player player;
 
     private Monster monster;
     private Animator animator;
@@ -23,50 +24,65 @@ public class Boss : MonoBehaviour
     private int playerHp;
 
     private bool isMove = false;
+    private bool isDead = false;
 
     private void Start()
     {
         monster = GetComponent<Monster>();
         animator = GetComponent<Animator>();
+        player = FindObjectOfType<Player>();
     }
 
     private void Update()
     {
-        if (target == null)
+        time += Time.deltaTime;
+
+        if(hp <= 0)
+        {
+            isDead = true;
+            animator.SetBool("BossDie", true);
+        }
+
+        if (player == null)
             return;
-
-        float dis = Vector2.Distance(transform.position, target.position);
-        if (dis <= aggroRange && dis > attackRange.x)
+                
+        if(!isDead)
         {
-            Move();
-        }
+            float dis = Vector2.Distance(transform.position, player.transform.position);
+            if (dis <= aggroRange && dis > attackRange.x)
+            {
+                Move();
+            }
 
-        else if(dis <= attackRange.x)
-        {
-            if (curTime <= 0)
+            else if (dis <= attackRange.x)
             {
-                Attack();
+                if (curTime <= 0)
+                {
+                    Attack();
+                }
+                else
+                {
+                    curTime -= Time.deltaTime;
+                }
             }
-            else
-            {
-                curTime -= Time.deltaTime;
-            }
-        }
+            LookTarget();
+        }        
+
         animator.SetBool("IsMove", isMove);
+        animator.SetBool("BossDie", isDead);
     }
 
     private void Attack()
     {
         speed = 0f;
         curTime = coolTime;
-        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(target.position, attackRange, 0);
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(player.transform.position, attackRange, 0);
         foreach (Collider2D collider in collider2Ds)
         {
             if (collider.CompareTag("Player"))
             {
                 collider.GetComponent<Player>().TakeDamage(Random.Range(300, 500));
                 playerHp = collider.GetComponent<Player>().myHp;
-                //Debug.Log(hp);
                 if (playerHp <= 0)
                     collider.GetComponent<Player>().Dead();
             }
@@ -77,8 +93,8 @@ public class Boss : MonoBehaviour
     private void Move()
     {
         speed = 1f;
-        LookTarget();
-        float dir = target.position.x - transform.position.x;
+        
+        float dir = player.transform.position.x - transform.position.x;
         dir = (dir < 0) ? -1 : 1;
         transform.Translate(new Vector2(dir, 0) * speed * Time.deltaTime);
         animator.SetBool("IsMove", true);
@@ -86,7 +102,7 @@ public class Boss : MonoBehaviour
 
     private void LookTarget()
     {
-        if (target.position.x - transform.position.x < 0)
+        if (player.transform.position.x - transform.position.x < 0)
         {
             transform.localScale = new Vector3(1,1,1);
         }
@@ -104,7 +120,7 @@ public class Boss : MonoBehaviour
         Gizmos.DrawWireCube(pos, attackRange);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage1(int damage)
     {
         hp = hp - damage;
     }
