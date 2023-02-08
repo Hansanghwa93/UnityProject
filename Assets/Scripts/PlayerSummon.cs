@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerSummon : MonoBehaviour
 {
-    public GameObject player;
+    public Player player;
 
-    void Start()
+    private void Awake()
     {
+        Debug.Log(player);
         Instantiate(player);
     }
 }

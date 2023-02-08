@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellCtrl : MonoBehaviour
@@ -34,14 +32,6 @@ public class SpellCtrl : MonoBehaviour
                 Spell2Active(spells[1]);
                 activeTime = 0f;
             }
-        }
-        else if (hp > 0 && hp <= 500)
-        {
-            //if (activeCount < 1)
-            //{
-            //    SpellActive(spells[2]);
-            //    activeCount = 1;
-            //}
         }
     }
 

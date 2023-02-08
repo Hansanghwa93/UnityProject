@@ -1,63 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSkill1 : MonoBehaviour
 {
     public GameObject prefab;
     private Animator animator;
-    public Transform target;
+    public Transform pos;
     public Vector2 attackBox;
 
     private bool isHit = false;
     private int damage = 500;
     private int bossHp;
+    private int monHp;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        if (!isHit)
+        {
+            SkillTakeDamage();
+        }
+        isHit = false;
     }
 
     void Update()
     {
-        if(isHit)
-            SkillTakeDamage();
+        
     }
 
     private void SkillTakeDamage()
     {
-        Vector2 pos = transform.position;
-        pos.x += 3f;
-        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(transform.position, attackBox, 0);
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, attackBox, 0);
         foreach (Collider2D collider in collider2Ds)
         {
-            if (collider.CompareTag("Player"))
+            if (collider.tag == "Boss")
             {
-                collider.GetComponent<Player>().TakeDamage(damage);
+                collider.GetComponent<Boss>().TakeDamage1(damage);
                 bossHp = collider.GetComponent<Boss>().hp;
+                Debug.Log(bossHp);
+            }
+            else if (collider.tag == "Monster")
+            {
+                collider.GetComponent<Monster>().TakeDamage(damage);
+                monHp = collider.GetComponent<Monster>().hp;
+                Debug.Log(monHp);
             }
         }
-        isHit = false;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            isHit = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        isHit = false;
+        isHit = true;
     }
 
     private void OnDrawGizmos()
     {
-        Vector2 pos = transform.position;
-        pos.x += 3f;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(pos, attackBox);
+        Gizmos.DrawWireCube(pos.position, attackBox);
     }
 }

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -45,12 +42,14 @@ public class Portal : MonoBehaviour
                 if (transferMapName == "Tutorial")
                 {
                     player.transform.position = new Vector2(-16f, -2.044864f);
+                    DontDestroyOnLoad(player);
                 }
                 if (transferMapName == "Boss")
                 {
                     player.transform.position = new Vector2(-10f, -2.023304f);
+                    DontDestroyOnLoad(player);
                 }
-                DontDestroyOnLoad(player);
+                
             }
         }
     }

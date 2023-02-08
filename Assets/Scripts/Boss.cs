@@ -1,10 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Services.Analytics.Platform;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using static UnityEditor.PlayerSettings;
 
 public class Boss : MonoBehaviour
 {
@@ -25,6 +20,7 @@ public class Boss : MonoBehaviour
 
     private bool isMove = false;
     private bool isDead = false;
+    public bool isUnBeatTime = false;
 
     private void Start()
     {
@@ -46,7 +42,7 @@ public class Boss : MonoBehaviour
         if (player == null)
             return;
                 
-        if(!isDead)
+        if(!isDead && !player.isDead)
         {
             float dis = Vector2.Distance(transform.position, player.transform.position);
             if (dis <= aggroRange && dis > attackRange.x)
@@ -81,10 +77,13 @@ public class Boss : MonoBehaviour
         {
             if (collider.CompareTag("Player"))
             {
-                collider.GetComponent<Player>().TakeDamage(Random.Range(300, 500));
-                playerHp = collider.GetComponent<Player>().myHp;
-                if (playerHp <= 0)
-                    collider.GetComponent<Player>().Dead();
+                if (collider.isTrigger == false)
+                {
+                    collider.GetComponent<Player>().TakeDamage(Random.Range(300, 500));
+                    playerHp = collider.GetComponent<Player>().myHp;
+                    if (playerHp <= 0)
+                        collider.GetComponent<Player>().Dead();
+                }                
             }
         }
         animator.SetTrigger("Atk");
@@ -123,5 +122,26 @@ public class Boss : MonoBehaviour
     public void TakeDamage1(int damage)
     {
         hp = hp - damage;
+        isUnBeatTime = true;
+        StartCoroutine("NotHit");
+    }
+
+    IEnumerator NotHit()
+    {
+        int countTime = 0;
+        while (countTime < 10)
+        {
+            if (countTime % 2 == 0)
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.7f);
+            else
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
+
+            yield return new WaitForSeconds(0.2f);
+
+            countTime++;
+        }
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        isUnBeatTime = false;
+        yield return null;
     }
 }

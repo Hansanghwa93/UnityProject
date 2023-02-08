@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 1867045662613087186}
   - component: {fileID: 1867045662613087197}
   - component: {fileID: 1867045662613087196}
+  - component: {fileID: 3341473056264845378}
   - component: {fileID: 1867045662613087199}
   - component: {fileID: 1867045662613087198}
   m_Layer: 9
@@ -106,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867045662613087193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.8, y: -1.890168, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -152,8 +153,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2104461067
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: -792551730, guid: ba0d657c794b52749a1dd364572ae2e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -221,11 +222,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 400
   speed: 3
+  isDead: 0
+  isAttack: 0
+  isUnBeatTime: 0
   pos: {fileID: 1867045661935761150}
   boxSize: {x: 1.5, y: 1}
   currMapName: 
   coolTime: 1
+  skillCool: 1
   myHp: 30000
+  skills:
+  - {fileID: 129220648141969486, guid: f8fc3497ddce6b045896a35c17bec778, type: 3}
 --- !u!114 &1867045662613087184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +304,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
+--- !u!114 &3341473056264845378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867045662613087193}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5692e70ef02429b468a55e62ffc10d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skills:
+  - {fileID: 129220648141969486, guid: f8fc3497ddce6b045896a35c17bec778, type: 3}
 --- !u!58 &1867045662613087199
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -310,9 +331,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05, y: -0.22}
+  m_Offset: {x: 0.049999982, y: -0.24178824}
   serializedVersion: 2
-  m_Radius: 0.13695574
+  m_Radius: 0.11516747
 --- !u!70 &1867045662613087198
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

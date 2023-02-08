@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Net;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -12,15 +11,17 @@ public class Player : MonoBehaviour
 
     private int jumpCount = 0;
     private bool isGrounded = false;
-    private bool isDead = false;
+    public bool isDead = false;
     private bool isMove = false;
     private bool isProne = false;
-    private bool isAttack = false;
+    public bool isAttack = false;
     private bool isCanDown = false;
+    public bool isUnBeatTime = false;
 
     private Rigidbody2D rb;
     private Animator animator;
     private CircleCollider2D cir;
+    private CapsuleCollider2D cap;
     private BoxCollider2D box;
     private PlayerSkill1 ps1;
 
@@ -31,10 +32,13 @@ public class Player : MonoBehaviour
 
     private float curTime;
     public float coolTime = 0.5f;
+    public float skillCool = 1f;
 
     public int myHp;
     private int monHp;
     private int bossHp;
+
+    public GameObject[] skills;
 
     private void Start()
     {
@@ -42,91 +46,95 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         cir = GetComponent<CircleCollider2D>();
+        cap = GetComponent<CapsuleCollider2D>();
         box = GetComponent<BoxCollider2D>();
         ps1 = GetComponent<PlayerSkill1>();
     }
 
     private void Update()
     {
-        if (isDead)
-            return;
-
         CheckPlatformAndDown();
-
-        Vector3 moveVelocitiy = Vector3.zero;
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (!isDead)
         {
-            isGrounded = true;
-            isMove = true;
-            moveVelocitiy = Vector3.left;
-            transform.localScale = new Vector3(-1, 1, 0);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            isGrounded = true;
-            isMove = true;
-            moveVelocitiy = Vector3.right;
-            transform.localScale = new Vector3(1, 1, 0);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            isMove = false;
-        }
-
-        transform.position += moveVelocitiy * speed * Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            RopeAction();
-        }
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            isProne = false;
-        }
-        if (Input.GetKey(KeyCode.DownArrow) && Input.GetButtonDown("Jump"))
-        {
-            if (isCanDown)
-                DownJump();
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (isGrounded)
-                isProne = true;
-        }
-        else if (Input.GetButtonDown("Jump") && jumpCount < 2)
-        {
-            Jump();
-        }
-        if (curTime <= 0)
-        {
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            Vector3 moveVelocity = Vector3.zero;
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                curTime = coolTime;
-                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-                foreach (Collider2D collider in collider2Ds)
+                isGrounded = true;
+                isMove = true;
+                moveVelocity = Vector3.left;
+                transform.localScale = new Vector3(-1, 1, 0);
+                skills[0].transform.localScale = new Vector3(1, 1, 0);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                isGrounded = true;
+                isMove = true;
+                moveVelocity = Vector3.right;
+                transform.localScale = new Vector3(1, 1, 0);
+                skills[0].transform.localScale = new Vector3(-1, 1, 0);
+            }
+            if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                isMove = false;
+            }
+
+            transform.position += moveVelocity * speed * Time.deltaTime;
+
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                isProne = false;
+            }
+            if (Input.GetKey(KeyCode.DownArrow) && Input.GetButtonDown("Jump"))
+            {
+                if (isCanDown)
+                    DownJump();
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (isGrounded)
+                    isProne = true;
+            }
+            else if (Input.GetButtonDown("Jump") && jumpCount < 2)
+            {
+                Jump();
+            }
+            if (curTime <= 0)
+            {
+                if (Input.GetKeyDown(KeyCode.LeftControl))
                 {
-                    if (collider.tag == "Monster")
+                    curTime = coolTime;
+                    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+                    foreach (Collider2D collider in collider2Ds)
                     {
-                        collider.GetComponent<Monster>().TakeDamage(Random.Range(300, 500));
-                        monHp = collider.GetComponent<Monster>().hp;
+                        if (collider.tag == "Monster")
+                        {
+                            if(!isAttack)
+                                collider.GetComponent<Monster>().TakeDamage(Random.Range(300, 500));
+                            monHp = collider.GetComponent<Monster>().hp;
+                        }
+                        else if (collider.tag == "Boss")
+                        {
+                            if(!isAttack)
+                                collider.GetComponent<Boss>().TakeDamage1(Random.Range(300, 500));
+                            bossHp = collider.GetComponent<Boss>().hp;
+                        }
                     }
-                    else if (collider.tag == "Boss")
-                    {
-                        collider.GetComponent<Boss>().TakeDamage1(Random.Range(300, 500));
-                        bossHp = collider.GetComponent<Boss>().hp;
-                    }
+                    animator.SetTrigger("Atk");
                 }
-                animator.SetTrigger("Atk");
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    curTime = skillCool;
+                    Skill1Active();
+                    animator.SetTrigger("Atk");
+                }
+            }
+            else
+            {
+                curTime -= Time.deltaTime;
             }
         }
         else
-        {
-            curTime -= Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Instantiate(ps1);
-        }
+            return;
 
         animator.SetBool("Prone", isProne);
         animator.SetBool("Move", isMove);
@@ -146,12 +154,6 @@ public class Player : MonoBehaviour
             isCanDown = true;
         if (rayHit2)
             isCanDown = false;
-        //if (rayHit)
-        //{
-        //    isGrounded = true;
-        //    DownJump();
-        //}
-
     }
 
     private void DownJump()
@@ -183,18 +185,38 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        myHp = myHp - damage;
+        if(!isDead)
+        {
+            myHp = myHp - damage;
+            isUnBeatTime = true;
+            StartCoroutine("NotHit");
+        }        
+    }
+
+    IEnumerator NotHit()
+    {
+        int countTime = 0;
+        while(countTime < 10)
+        {
+            if (countTime % 2 == 0)
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.7f);
+            else
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
+
+            yield return new WaitForSeconds(0.2f);
+
+            countTime++;
+        }
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        isUnBeatTime = false;
+        yield return null;
     }
 
     public void Dead()
     {
         if (myHp <= 0)
+            isDead = true;
             animator.SetBool("IsDead", true);
-    }
-
-    private void RopeAction()
-    {
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -215,5 +237,22 @@ public class Player : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(pos.position, boxSize);
+    }
+
+    public void Skill1Active()
+    {
+        Vector3 pos = transform.position;
+        pos.z += -1f;
+        Instantiate(skills[0], pos, transform.rotation);
+    }
+
+    public void AttackTrue()
+    {
+        isAttack = true;
+    }
+
+    public void AttackFalse()
+    {
+        isAttack = false;
     }
 }

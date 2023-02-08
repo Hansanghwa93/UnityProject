@@ -28,7 +28,7 @@ TagManager:
   - AttackPoint
   - FallObj
   - CantDownPlatform
-  - 
+  - PlayerDamaged
   - 
   - 
   - 
@@ -48,4 +48,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 563485785
+    locked: 0
+  - name: Enemy
+    uniqueID: 2540962233
+    locked: 0
+  - name: NPC
+    uniqueID: 3254707041
+    locked: 0
+  - name: Player
+    uniqueID: 2190506229
+    locked: 0
+  - name: Skill
+    uniqueID: 2943507909
+    locked: 0
+  - name: Portal
+    uniqueID: 2488426817
     locked: 0
