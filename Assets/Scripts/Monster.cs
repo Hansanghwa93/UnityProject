@@ -6,6 +6,11 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Monster : MonoBehaviour
 {
+    public GameObject hpBarprf;
+    public GameObject canvas;
+    RectTransform hpBar;
+    public float height = 1.7f;
+
     public Vector2 hitBox;
     private CharacterStats stats;
     private Rigidbody2D rb;
@@ -29,6 +34,17 @@ public class Monster : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         Invoke("Think", 0);
+    }
+
+    private void Start()
+    {
+        hpBar = Instantiate(hpBarprf, canvas.transform).GetComponent<RectTransform>();
+    }
+
+    private void Update()
+    {
+        Vector3 hpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
+        hpBar.position = hpBarPos;
     }
 
     private void FixedUpdate()

@@ -16,19 +16,19 @@ public class PlayerSkillCtrl : MonoBehaviour
     }
 
 
-    void Update()
-    {
-        //if (curTime <= 0)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.A))
-        //    {
-        //        curTime = coolTime;
-        //        Skill1Active();
-        //    }
-        //}
-        //else
-        //    curTime -= Time.deltaTime;
-    }
+    //void Update()
+    //{
+    //    if (curTime <= 0)
+    //    {
+    //        if (Input.GetMouseButton(0))
+    //        {
+    //            curTime = coolTime;
+    //            Skill1Active();
+    //        }
+    //    }
+    //    else
+    //        curTime -= Time.deltaTime;
+    //}
 
     public void Skill1Active()
     {

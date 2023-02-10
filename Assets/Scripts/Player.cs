@@ -1,5 +1,7 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
     public bool isAttack = false;
     private bool isCanDown = false;
     public bool isUnBeatTime = false;
+    private bool isActiveSkill = false;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -34,13 +37,23 @@ public class Player : MonoBehaviour
     public float coolTime = 0.5f;
     public float skillCool = 1f;
 
-    public int myHp;
     private int monHp;
     private int bossHp;
 
     public GameObject[] skills;
+    public bl_Joystick stick;
+    private JoyStick joystick;
 
-    private void Start()
+    public Image nowHpBar;
+    public Image nowMpBar;
+    public int myHp;
+    public int maxHp;
+    public int myMp;
+    public int maxMp;
+
+    private int useMp = 50;
+
+    private void Awake()
     {
         stats = GetComponent<CharacterStats>();
         rb = GetComponent<Rigidbody2D>();
@@ -49,98 +62,83 @@ public class Player : MonoBehaviour
         cap = GetComponent<CapsuleCollider2D>();
         box = GetComponent<BoxCollider2D>();
         ps1 = GetComponent<PlayerSkill1>();
+        joystick = GameObject.FindObjectOfType<JoyStick>();
+
+        myHp = maxHp;
+        myMp = maxMp;
     }
 
     private void Update()
     {
+        nowHpBar.fillAmount = (float)myHp / (float)maxHp;
+        nowMpBar.fillAmount = (float)myMp / (float)maxMp;
+
         CheckPlatformAndDown();
         if (!isDead)
         {
-            Vector3 moveVelocity = Vector3.zero;
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (joystick.Horizontal <= -0.8f || joystick.Horizontal >= 0.8f)
             {
-                isGrounded = true;
-                isMove = true;
-                moveVelocity = Vector3.left;
-                transform.localScale = new Vector3(-1, 1, 0);
-                skills[0].transform.localScale = new Vector3(1, 1, 0);
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                isGrounded = true;
-                isMove = true;
-                moveVelocity = Vector3.right;
-                transform.localScale = new Vector3(1, 1, 0);
-                skills[0].transform.localScale = new Vector3(-1, 1, 0);
-            }
-            if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
-            {
-                isMove = false;
-            }
-
-            transform.position += moveVelocity * speed * Time.deltaTime;
-
-            if (Input.GetKeyUp(KeyCode.DownArrow))
-            {
-                isProne = false;
-            }
-            if (Input.GetKey(KeyCode.DownArrow) && Input.GetButtonDown("Jump"))
-            {
-                if (isCanDown)
-                    DownJump();
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                if (isGrounded)
-                    isProne = true;
-            }
-            else if (Input.GetButtonDown("Jump") && jumpCount < 2)
-            {
-                Jump();
-            }
-            if (curTime <= 0)
-            {
-                if (Input.GetKeyDown(KeyCode.LeftControl))
+                if (joystick.Horizontal <= -0.8f)
                 {
-                    curTime = coolTime;
-                    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-                    foreach (Collider2D collider in collider2Ds)
-                    {
-                        if (collider.tag == "Monster")
-                        {
-                            if(!isAttack)
-                                collider.GetComponent<Monster>().TakeDamage(Random.Range(300, 500));
-                            monHp = collider.GetComponent<Monster>().hp;
-                        }
-                        else if (collider.tag == "Boss")
-                        {
-                            if(!isAttack)
-                                collider.GetComponent<Boss>().TakeDamage1(Random.Range(300, 500));
-                            bossHp = collider.GetComponent<Boss>().hp;
-                        }
-                    }
-                    animator.SetTrigger("Atk");
+                    isGrounded = true;
+                    isMove = true;
+                    transform.localScale = new Vector3(-1, 1, 0);
+                    skills[0].transform.localScale = new Vector3(1, 1, 0);
                 }
-                if (Input.GetKeyDown(KeyCode.A))
+                if (joystick.Horizontal >= 0.8f)
                 {
-                    curTime = skillCool;
-                    Skill1Active();
-                    animator.SetTrigger("Atk");
+                    isGrounded = true;
+                    isMove = true;
+                    transform.localScale = new Vector3(1, 1, 0);
+                    skills[0].transform.localScale = new Vector3(-1, 1, 0);
                 }
+                MoveControl();
             }
             else
-            {
-                curTime -= Time.deltaTime;
-            }
+                isMove = false;
         }
         else
             return;
+
+        curTime -= Time.deltaTime;
 
         animator.SetBool("Prone", isProne);
         animator.SetBool("Move", isMove);
         animator.SetBool("Grounded", isGrounded);
         animator.SetBool("IsDead", isDead);
         animator.SetInteger("JumpCount", jumpCount);
+    }
+
+    private void MoveControl()
+    {
+        Vector3 rightMovement = Vector3.right * speed * Time.deltaTime * joystick.Horizontal;
+        if(joystick.Horizontal <= -0.8f || joystick.Horizontal >= 0.8f)
+            transform.position += rightMovement;
+    }
+
+    public void Attack()
+    {
+        if (curTime <= 0)
+        {
+            curTime = coolTime;
+            Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+            foreach (Collider2D collider in collider2Ds)
+            {
+                if (collider.tag == "Monster")
+                {
+                    if (!isAttack)
+                        collider.GetComponent<Monster>().TakeDamage(Random.Range(300, 500));
+                    monHp = collider.GetComponent<Monster>().hp;
+                }
+                else if (collider.tag == "Boss")
+                {
+                    if (!isAttack)
+                        collider.GetComponent<Boss>().TakeDamage1(Random.Range(300, 500));
+                    bossHp = collider.GetComponent<Boss>().hp;
+                }
+            }
+            animator.SetTrigger("Atk");
+        }
     }
 
     private void CheckPlatformAndDown()
@@ -156,11 +154,14 @@ public class Player : MonoBehaviour
             isCanDown = false;
     }
 
-    private void DownJump()
+    public void DownJump()
     {
-        cir.isTrigger = true;
-        isGrounded = false;
-        StartCoroutine("TriggerCrtl");
+        if(isCanDown)
+        {
+            cir.isTrigger = true;
+            isGrounded = false;
+            StartCoroutine("TriggerCrtl");
+        }
     }
 
     private IEnumerator TriggerCrtl()
@@ -169,13 +170,16 @@ public class Player : MonoBehaviour
         cir.isTrigger = false;
     }
 
-    private void Jump()
+    public void Jump()
     {
-        isGrounded = false;
-        isProne = false;
-        ++jumpCount;
-        rb.velocity = Vector2.zero;
-        rb.AddForce(new Vector2(0, jumpForce));
+        if(jumpCount < 2)
+        {
+            isGrounded = false;
+            isProne = false;
+            ++jumpCount;
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(0, jumpForce));
+        }        
         if(jumpCount == 2)
         {
             moveX = Input.GetAxis("Horizontal") * speed;
@@ -241,9 +245,22 @@ public class Player : MonoBehaviour
 
     public void Skill1Active()
     {
-        Vector3 pos = transform.position;
-        pos.z += -1f;
-        Instantiate(skills[0], pos, transform.rotation);
+        if (curTime <= 0 && myMp >= useMp)
+        {
+            curTime = skillCool;
+            Vector3 pos = transform.position;
+            pos.z += -1f;
+            Instantiate(skills[0], pos, transform.rotation);
+            animator.SetTrigger("Atk");
+            isActiveSkill = true;
+            UseMP();
+        }
+    }
+
+    private void UseMP()
+    {
+        if (isActiveSkill)
+            myMp = myMp - useMp;
     }
 
     public void AttackTrue()

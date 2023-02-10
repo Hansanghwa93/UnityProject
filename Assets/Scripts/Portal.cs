@@ -12,6 +12,7 @@ public class Portal : MonoBehaviour
     }
 
     private Player player;
+    private JoyStick joystick;
 
     public string transferMapName;
     private BoxCollider2D box;
@@ -24,6 +25,7 @@ public class Portal : MonoBehaviour
     {
         box = GetComponent<BoxCollider2D>();
         //player = FindObjectOfType<Player>();
+        joystick = GameObject.FindObjectOfType<JoyStick>();
     }
 
     private void Update()
@@ -31,7 +33,7 @@ public class Portal : MonoBehaviour
         player = FindObjectOfType<Player>();
         if (isInportal)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (joystick.Vertical > 0.8f)
             {
                 player.currMapName = transferMapName;
                 SceneManager.LoadScene(transferMapName);

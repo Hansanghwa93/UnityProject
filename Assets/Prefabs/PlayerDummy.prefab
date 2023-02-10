@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 1867045662613087197}
   - component: {fileID: 1867045662613087196}
   - component: {fileID: 3341473056264845378}
+  - component: {fileID: 4344824122992986245}
   - component: {fileID: 1867045662613087199}
   - component: {fileID: 1867045662613087198}
   m_Layer: 9
@@ -233,6 +234,7 @@ MonoBehaviour:
   myHp: 30000
   skills:
   - {fileID: 129220648141969486, guid: f8fc3497ddce6b045896a35c17bec778, type: 3}
+  stick: {fileID: 0}
 --- !u!114 &1867045662613087184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +320,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skills:
   - {fileID: 129220648141969486, guid: f8fc3497ddce6b045896a35c17bec778, type: 3}
+--- !u!114 &4344824122992986245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867045662613087193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015103ff3051c914197b68102bbd1bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
 --- !u!58 &1867045662613087199
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ TagManager:
   - Portal
   - AttackPoint
   - Boss
+  - Canvas
   layers:
   - Default
   - TransparentFX
